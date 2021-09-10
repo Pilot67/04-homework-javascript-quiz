@@ -1,0 +1,30 @@
+:root{
+    --chalk: #fbf7f5;
+    --headingColor: #24496e;
+    --backColor: #617384;
+    --pageBackColor: #c6c7c1;
+  
+  }
+  
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--pageBackColor);
+  }
+  html {
+    /* set global font size to 10 for easy calculations */
+    font-size: 62.5%;
+    background-color: var(--chalk);
+}
+
+body {
+    /* Set body font and text size */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.75rem;
+    line-height: 1.5;
+    color: var(--textBlack);
+    background-color: var(--chalk);
+}
+
