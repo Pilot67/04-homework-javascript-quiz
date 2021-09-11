@@ -28,12 +28,22 @@ body {
     background-color: var(--chalk);
 }
 main {
-  display: flex;
-  flex-direction: column;
-  justify-items: flex-start;
+  width:100%;
+  display: block;
+  /* flex-direction: column; */
+  justify-items: flex-start ;
+
+}
+
+button {
+  border-radius: 1rem;
+  padding: 5px 25px;
+  margin: 2rem auto;
 }
 .qCard {
-  width: 100%;
+  width: 50%;
+  min-width: 500px;
+  margin: 0 auto;
   min-height: 300px;
   height: 100%;
   background-color: var(--backColor);
@@ -47,15 +57,24 @@ main {
 .qAsk {
   color: var(--chalk);
   padding: 10px;
+  width: 75%;
 }
 #answerList {
   margin:0 auto;
-  background-color: aqua;
+  width: 50%;
 }
 
 #answerList li {
-  border: none;
+  margin: 5px;
+  border: 3px darkgrey outset;
+  background-color: blueviolet;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 1rem;
 }
 #answerList li:hover {
-  border:2px  black solid;
+  border:2px  darkgrey inset;
+}
+#nextBtn {
+  display: none;
 }

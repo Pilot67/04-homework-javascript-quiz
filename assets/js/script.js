@@ -1,10 +1,15 @@
 // Declare global variables
 var startBtn = document.querySelector("#startBtn");
 var header = document.querySelector("header");
-var questionDisplay = document.querySelector(".qAsk")
-var answerList = document.querySelector("#answerList")
+var questionDisplay = document.querySelector(".qAsk");
+var answerList = document.querySelector("#answerList");
+var qNumber = document.getElementById("headingSpan");
+var nextBtn = document.getElementById("nextBtn");
 
-var questionIndex = 0
+var questionIndex = 0;
+answerSelected = false;
+var score = 0;
+
 //Question array as follows:
 //  ask is an array under the oblect questions.ask
 //  answer is a 2d array under the object questions.answer[index of question][index of text][index of correct]
@@ -22,8 +27,8 @@ questions = {
         ["Brendan Elch", true],
     ],
     [ //Answers to Q2
-        ["true", true],
-        ["false",false]
+        ["True", true],
+        ["False",false]
     ],
     [ //Answers to Q3
         ["{}", true],
@@ -32,12 +37,6 @@ questions = {
     ],
 ]
 }
-
-//testing array 
-//var index = 0;
-// console.log(questions.ask.length);
-//console.log(questions.answer[index]);
-// console.log(questions.answer[index].length)
 
 //create random questions
 var questionsRandom = questions;
@@ -67,9 +66,10 @@ function initDisplay(){
 
 }
 
+//function to render the questions on the screen
 function displayQuestions() {
+    qNumber.textContent = questionIndex+1;
     questionDisplay.textContent = questionsRandom.ask[questionIndex] + " ?";
-    console.log(questionIndex)
     // Render a new li for each answer
     for (var index = 0; index < questionsRandom.answer[questionIndex].length; index++) {
         //var todo = todos[i];
@@ -77,11 +77,12 @@ function displayQuestions() {
         var li = document.createElement("li");
         li.textContent = questionsRandom.answer[questionIndex][index][0];
         li.setAttribute("data-correct", questionsRandom.answer[questionIndex][index][1]);
-
         answerList.appendChild(li);
     }
-
+    answerSelected=false;
 }
+
+
 
 // function to initialise the quiz
 startBtn.addEventListener("click", function(){
@@ -96,11 +97,34 @@ startBtn.addEventListener("click", function(){
 
 answerList.addEventListener("click",function(event){
     var eventTarget = event.target;
-    if (eventTarget.matches("li")) {
-        var correct = eventTarget.getAttribute("data-correct");
+    if (eventTarget.matches("li") && !answerSelected) {
+        var correct = JSON.parse(eventTarget.getAttribute("data-correct"));
+        answerSelected = true;
         console.log(correct);
-      //console.log(li.Dataset)
+        if (correct) {
+            eventTarget.setAttribute("style","background-color: green;")
+            score++
+        }else{
+            eventTarget.setAttribute("style","background-color: red;")
+        }
+        nextBtn.setAttribute("style","display:block")
     }
 })
 
-
+//function after the next button is clicked
+nextBtn.addEventListener("click",function(){
+    if (questionIndex < questionsRandom.ask.length - 1){
+        console.log(questionsRandom.ask.length);
+        questionIndex++;
+        nextBtn.setAttribute("style","display:none")
+        //remove all of the last answers
+        while (answerList.hasChildNodes()){
+            answerList.removeChild(answerList.firstChild);
+        }
+        //display the next question
+        displayQuestions()
+    }else {
+        //end of quiz
+        //displayResults()
+    }
+})
