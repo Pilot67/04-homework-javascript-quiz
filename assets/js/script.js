@@ -69,11 +69,10 @@ function initDisplay(){
 
 function displayQuestions() {
     questionDisplay.textContent = questionsRandom.ask[questionIndex] + " ?";
-    console.log(questionsRandom.answer[questionIndex])
+    console.log(questionIndex)
     // Render a new li for each answer
     for (var index = 0; index < questionsRandom.answer[questionIndex].length; index++) {
         //var todo = todos[i];
-        console.log(questionsRandom.answer[questionIndex][index][1])
 
         var li = document.createElement("li");
         li.textContent = questionsRandom.answer[questionIndex][index][0];
@@ -86,7 +85,11 @@ function displayQuestions() {
 
 // function to initialise the quiz
 startBtn.addEventListener("click", function(){
-    shuffleQuestions(); //Shuffle the Q & A's
+    for (i=0; i <5; i++){
+        shuffleQuestions(); //Shuffle the Q & A's
+        console.log(questions.ask[0]);
+        //console.log(questionsRandom.ask.length)
+    }
     initDisplay(); // initialise the display
     displayQuestions() // display the questions
 })
@@ -94,7 +97,9 @@ startBtn.addEventListener("click", function(){
 answerList.addEventListener("click",function(event){
     var eventTarget = event.target;
     if (eventTarget.matches("li")) {
-      //li item clicked here
+        var correct = eventTarget.getAttribute("data-correct");
+        console.log(correct);
+      //console.log(li.Dataset)
     }
 })
 
