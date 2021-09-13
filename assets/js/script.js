@@ -5,10 +5,22 @@ var questionDisplay = document.querySelector(".qAsk");
 var answerList = document.querySelector("#answerList");
 var qNumber = document.getElementById("headingSpan");
 var nextBtn = document.getElementById("nextBtn");
+var questionCard = document.querySelector(".qCard");
+var timerDisplay = document.querySelector("#timerSpan");
+var feedBack = document.querySelector("#feedBack");
 
 var questionIndex = 0;
-answerSelected = false;
+var answerSelected = false;
+var nextQuestion = false;
 var score = 0;
+var qTimer, timerInterval, timerStart;
+//var timerStart = false;
+
+var colors = {
+    greenTrue:"#48d325",
+    redFalse:"#e03030"
+}
+
 
 //Question array as follows:
 //  ask is an array under the oblect questions.ask
@@ -40,7 +52,7 @@ questions = {
 
 //create random questions
 var questionsRandom = questions;
-
+//Shuffle the question deck
 function shuffleQuestions() {
     // For loop to shuffle the questions and corresponding answers
     for (var index = questionsRandom.ask.length - 1; index > 0; index--){
@@ -61,9 +73,9 @@ function shuffleQuestions() {
     }
 }  
 
-function initDisplay(){
+function initQuestionDisplay(){
     header.setAttribute("style","display:none");
-
+    questionCard.setAttribute("style","display:block");
 }
 
 //function to render the questions on the screen
@@ -82,17 +94,29 @@ function displayQuestions() {
     answerSelected=false;
 }
 
-
+//function to start the quiz timer
+function startGameTimer(){
+    timerStart = true;
+    qtimer = 60;
+    timerInterval = setInterval(function(){
+        qtimer--;
+        timerDisplay.textContent = qtimer;
+        if(qtimer === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            timerStart = false;
+            // Calls function to create and append image
+            // endGame();
+        }
+    },1000 );
+}
 
 // function to initialise the quiz
 startBtn.addEventListener("click", function(){
-    for (i=0; i <5; i++){
-        shuffleQuestions(); //Shuffle the Q & A's
-        console.log(questions.ask[0]);
-        //console.log(questionsRandom.ask.length)
-    }
-    initDisplay(); // initialise the display
+    shuffleQuestions(); //Shuffle the Q & A's
+    initQuestionDisplay(); // initialise the display
     displayQuestions() // display the questions
+    startGameTimer();
 })
 
 answerList.addEventListener("click",function(event){
@@ -100,31 +124,53 @@ answerList.addEventListener("click",function(event){
     if (eventTarget.matches("li") && !answerSelected) {
         var correct = JSON.parse(eventTarget.getAttribute("data-correct"));
         answerSelected = true;
-        console.log(correct);
         if (correct) {
-            eventTarget.setAttribute("style","background-color: green;")
-            score++
+            eventTarget.setAttribute("style","background-color: " + colors.greenTrue + ";");
+            feedBack.setAttribute("style", "color:" + colors.greenTrue);
+            feedBack.textContent = "Correct !";
+            score++;
         }else{
-            eventTarget.setAttribute("style","background-color: red;")
+            eventTarget.setAttribute("style","background-color: " + colors.redFalse + ";");
+            feedBack.setAttribute("style", "color:" + colors.redFalse);
+            feedBack.textContent = "Wrong !";
         }
-        nextBtn.setAttribute("style","display:block")
+        //call next question
+        nextQn();
     }
 })
 
-//function after the next button is clicked
-nextBtn.addEventListener("click",function(){
+function nextQn() {
+    var delay = 5;
+    var localInterval = setInterval(function(){
+        delay--;
+        if(delay === 0) {
+            // Stops execution of action at set interval
+            clearInterval(localInterval);
+            clearQuestions()
+        }
+    },100 );
+}
+
+function clearQuestions () {
+    feedBack.textContent = "";
     if (questionIndex < questionsRandom.ask.length - 1){
-        console.log(questionsRandom.ask.length);
         questionIndex++;
         nextBtn.setAttribute("style","display:none")
         //remove all of the last answers
         while (answerList.hasChildNodes()){
             answerList.removeChild(answerList.firstChild);
         }
-        //display the next question
         displayQuestions()
+        //display the next question
     }else {
         //end of quiz
         //displayResults()
     }
+
+}
+
+//function after the next button is clicked
+nextBtn.addEventListener("click",function(){
+    clearQuestions()
 })
+

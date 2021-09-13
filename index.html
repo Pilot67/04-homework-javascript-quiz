@@ -18,13 +18,25 @@
     </header>
 
     <main>
-        <Section class="qCard">
-            <h2 class="qCardHeading">Question number <span id="headingSpan"></span></h2>
-            <div class="qAsk"></div>
-            <p>Click on the correct answer</p>
-            <ul id="answerList">
-                <!-- <li>Some Text Here</li> -->
-            </ul>
+        <!-- <section class="userData">
+            <h2>Type in your name</h2>
+            <input type="text" >
+        </section> -->
+        
+        <Section class="cardWrapper">
+            <div class="qCard">
+                <div class="headingDiv">
+                    <h3 class="qCardHeading">Question number <span id="headingSpan"></span></h3>
+                    <h3 class="qTimer">Time <span id="timerSpan">60</span></h3>
+                </div>
+
+                <div class="qAsk"></div>
+                <p>Click on the correct answer below</p>
+                <ul id="answerList">
+                    <!-- <li>Some Text Here</li> -->
+                </ul>
+            </div>
+            <h4 id="feedBack">Correct!</h4>
             <button id="nextBtn">Next</button>
         </Section>
     </main>
