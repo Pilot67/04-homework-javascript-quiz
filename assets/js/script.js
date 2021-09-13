@@ -4,7 +4,6 @@ var header = document.querySelector("header");
 var questionDisplay = document.querySelector(".qAsk");
 var answerList = document.querySelector("#answerList");
 var qNumber = document.getElementById("headingSpan");
-var nextBtn = document.getElementById("nextBtn");
 var questionCard = document.querySelector(".qCard");
 var timerDisplay = document.querySelector("#timerSpan");
 var feedBack = document.querySelector("#feedBack");
@@ -140,7 +139,7 @@ answerList.addEventListener("click",function(event){
 })
 
 function nextQn() {
-    var delay = 5;
+    var delay = 6;
     var localInterval = setInterval(function(){
         delay--;
         if(delay === 0) {
@@ -152,25 +151,19 @@ function nextQn() {
 }
 
 function clearQuestions () {
-    feedBack.textContent = "";
+    feedBack.textContent = " ";
     if (questionIndex < questionsRandom.ask.length - 1){
         questionIndex++;
-        nextBtn.setAttribute("style","display:none")
         //remove all of the last answers
         while (answerList.hasChildNodes()){
             answerList.removeChild(answerList.firstChild);
         }
-        displayQuestions()
         //display the next question
+        displayQuestions()
     }else {
         //end of quiz
         //displayResults()
     }
 
 }
-
-//function after the next button is clicked
-nextBtn.addEventListener("click",function(){
-    clearQuestions()
-})
 
