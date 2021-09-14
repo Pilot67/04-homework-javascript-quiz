@@ -11,7 +11,10 @@ var numAnswered = document.querySelector("#resultNum");
 var scoreEl = document.querySelector("#score")
 var resultEl = document.querySelector(".resultWrapper");
 var cardEl = document.querySelector(".cardWrapper");
+var highEl = document.querySelector(".highWrapper");
 var highListEl = document.querySelector(".highList");
+var scoreCloseBtn = document.querySelector("#scoreCloseBtn");
+var highBtn = document.querySelector("#highBtn");
 
 var questionIndex = 0;
 var answerSelected = false;
@@ -20,9 +23,9 @@ var score = 0;
 var qTimer, timerInterval, timerStart;
 //var timerStart = false;
 var highScoreArr = [
-    {name:"stuart", score:7},
-    {name:"carrie", score:12},
-    {name:"katie", score:6}
+    {name:"Stuart", score:7},
+    {name:"Carrie", score:12},
+    {name:"Katie", score:6}
 ];
 
 var colors = {
@@ -183,18 +186,21 @@ function endGame(){
     scoreEl.textContent = score;
 }
 
+
 //initialise
 function init(){
     //Clear the displays
-    //cardEl.setAttribute("style","display:none");
-    //resultEl.setAttribute("style", "display:none");
-      //load the high score
-    getHighScores()
+    header.setAttribute("style","display:block");
+    cardEl.setAttribute("style","display:none");
+    resultEl.setAttribute("style", "display:none");
+    highEl.setAttribute("style", "display:none");
+    getHighScores() //load the high score
  }
- 
+ //Save the high scores to local storage
  function saveHighScores(){
     localStorage.setItem("highScores",JSON.stringify(highScoreArr));
  }
+ //get the high scores from local storage
  function getHighScores(){
     highScoreArr = JSON.parse(localStorage.getItem("highScores"));
     if (highScoreArr !== null) {
@@ -205,7 +211,24 @@ function init(){
              li.textContent = highScoreArr[index].name + "  :  " + highScoreArr[index].score;
              highListEl.appendChild(li)
         }
+    }else {
+        var li = document.createElement("li");
+        li.textContent = "Nothing to Display";
+        li.setAttribute("style", "width:100%")
+        highListEl.appendChild(li)
     }
  }
+ //close the high score panel
+ scoreCloseBtn.addEventListener("click", function(){
+     init();
+ })
 
- init()
+ //Display the high scores on screen
+function displayHighScores(){
+    header.setAttribute("style","display:none");
+    highEl.setAttribute("style", "display:block");    
+}
+//event listner to display the high scores     
+highBtn.addEventListener("click", displayHighScores);
+
+init()
