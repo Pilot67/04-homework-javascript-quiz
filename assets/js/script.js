@@ -7,6 +7,11 @@ var qNumber = document.getElementById("headingSpan");
 var questionCard = document.querySelector(".qCard");
 var timerDisplay = document.querySelector("#timerSpan");
 var feedBack = document.querySelector("#feedBack");
+var numAnswered = document.querySelector("#resultNum");
+var scoreEl = document.querySelector("#score")
+var resultEl = document.querySelector(".resultWrapper");
+var cardEl = document.querySelector(".cardWrapper");
+var highListEl = document.querySelector(".highList");
 
 var questionIndex = 0;
 var answerSelected = false;
@@ -14,6 +19,11 @@ var nextQuestion = false;
 var score = 0;
 var qTimer, timerInterval, timerStart;
 //var timerStart = false;
+var highScoreArr = [
+    {name:"stuart", score:7},
+    {name:"carrie", score:12},
+    {name:"katie", score:6}
+];
 
 var colors = {
     greenTrue:"#48d325",
@@ -74,7 +84,7 @@ function shuffleQuestions() {
 
 function initQuestionDisplay(){
     header.setAttribute("style","display:none");
-    questionCard.setAttribute("style","display:block");
+    cardEl.setAttribute("style","display:block")
 }
 
 //function to render the questions on the screen
@@ -96,7 +106,7 @@ function displayQuestions() {
 //function to start the quiz timer
 function startGameTimer(){
     timerStart = true;
-    qtimer = 60;
+    qtimer = 10;
     timerInterval = setInterval(function(){
         qtimer--;
         timerDisplay.textContent = qtimer;
@@ -104,8 +114,7 @@ function startGameTimer(){
             // Stops execution of action at set interval
             clearInterval(timerInterval);
             timerStart = false;
-            // Calls function to create and append image
-            // endGame();
+            endGame() //end of game
         }
     },1000 );
 }
@@ -152,8 +161,8 @@ function nextQn() {
 
 function clearQuestions () {
     feedBack.textContent = " ";
-    if (questionIndex < questionsRandom.ask.length - 1){
-        questionIndex++;
+    questionIndex++;
+    if (questionIndex < questionsRandom.ask.length){
         //remove all of the last answers
         while (answerList.hasChildNodes()){
             answerList.removeChild(answerList.firstChild);
@@ -161,9 +170,42 @@ function clearQuestions () {
         //display the next question
         displayQuestions()
     }else {
-        //end of quiz
+        clearInterval(timerInterval);
+        endGame()//end of quiz
         //displayResults()
     }
 
 }
+function endGame(){
+    cardEl.setAttribute("style","display:none");
+    resultEl.setAttribute("style", "display:block");
+    numAnswered.textContent = questionIndex + " Questions";
+    scoreEl.textContent = score;
+}
 
+//initialise
+function init(){
+    //Clear the displays
+    //cardEl.setAttribute("style","display:none");
+    //resultEl.setAttribute("style", "display:none");
+      //load the high score
+    getHighScores()
+ }
+ 
+ function saveHighScores(){
+    localStorage.setItem("highScores",JSON.stringify(highScoreArr));
+ }
+ function getHighScores(){
+    highScoreArr = JSON.parse(localStorage.getItem("highScores"));
+    if (highScoreArr !== null) {
+        //console.log(highScoreArr);
+        highScoreArr.sort(function(a, b){return b.score - a.score})
+        for (var index=0; index < highScoreArr.length;index++ ){
+             var li = document.createElement("li");
+             li.textContent = highScoreArr[index].name + "  :  " + highScoreArr[index].score;
+             highListEl.appendChild(li)
+        }
+    }
+ }
+
+ init()

@@ -14,16 +14,13 @@
         <h1>Javascript Quiz </h1>
         <h3>By Stuart Simmons</h3>
         <p>This quiz will run you through 25 random question<br> See how you go!</p>
-        <button id="startBtn">Start Quiz</button>
+        <button id="startBtn" class = "button">Start Quiz</button><br>
+        <button id="highBtn" class = "button">View High Scores</button>
     </header>
 
-    <main>
-        <!-- <section class="userData">
-            <h2>Type in your name</h2>
-            <input type="text" >
-        </section> -->
-        
-        <Section class="cardWrapper">
+    <main>     
+        <!-- This section to display the questions -->
+        <section class="cardWrapper">
             <div class="qCard">
                 <div class="headingDiv">
                     <h3 class="qCardHeading">Question number <span id="headingSpan"></span></h3>
@@ -37,7 +34,38 @@
                 </ul>
             </div>
             <h4 id="feedBack"></h4>
-        </Section>
+        </section>
+        
+        <!-- This section to display the results -->
+        <section class = "resultWrapper">
+            <div class= "rCard" >
+                <div class="resultHeading">
+                    <h3>Congratulations</h3>
+                    <h3>You answered <span id="resultNum"></span></h3>
+                    <h3>You Scored <span id="score"></span></h3>
+                </div>
+                <form class = "nameForm" action = "">
+                    <label for = "nameInput">Enter your name to record your score</label>
+                    <input id = "nameInput" type = "text" name = "name"><br>
+                    <input id = "submitBtn" class = "button" type = "submit" value = "Submit">                    
+                </form>
+            </div>
+        </section>
+
+        <!-- Display High Scores -->
+        <section class = "highWrapper">
+            <div class = "hCard">
+                <div class = "resultHeading">
+                    <h3>High Scores</h3>
+                </div>
+                <ul class = "highList">
+                </ul>
+
+                <button class="button">OK</button>
+
+            </div>
+        </section>
+
     </main>
 
     <script src="./assets/js/script.js"></script>

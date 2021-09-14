@@ -37,6 +37,10 @@ header {
   margin: 5px;
   padding: 5px;
 }
+header p {
+  margin: 2rem auto;
+}
+
 h1,h2,h3,h4,h5,h6 {
   color: var(--headingColor);
 }
@@ -57,12 +61,16 @@ main {
 
 }
 
-button {
+.button {
   border-radius: 1rem;
   padding: 5px 25px;
-  margin: 2rem auto;
+  margin: 1rem auto;
+  font-size: 2rem;
 }
-.cardWrapper {
+.cardWrapper,
+.resultWrapper,
+.highWrapper {
+  display: block;
   background-color: var(--wrapperBack);
   border-radius: 8px;
   box-shadow: 3px 3px 10px darkslategray;
@@ -70,7 +78,9 @@ button {
   width: 90vw;
   margin: auto;
 }
-.qCard {
+.qCard,
+.rCard,
+.hCard {
   display: block;
   width: 100%;
   margin: 0 auto;
@@ -79,10 +89,15 @@ button {
   padding: 10px 10px;
   box-shadow: 0px 0px 3px var(--chalk);
   border-radius: 5px;
+  text-align: center;
 }
 .headingDiv {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px var(--wrapperBack) solid;
+}
+.resultHeading {
+  text-align: center;
   border-bottom: 1px var(--wrapperBack) solid;
 }
 .qAsk {
@@ -109,10 +124,27 @@ button {
   text-align: center;
 }
 
-#nextBtn {
-  display: none;
-}
 #feedBack {
  text-align: center;
  color: var(--correctGreen);
+}
+.nameForm,
+#nameInput {
+  font-size:2rem;
+  text-align: center
+}
+#nameInput {
+  text-align: left
+}
+.nameForm {
+  margin-top: 20px;
+}
+.highList {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content:space-around"
+}
+.highList li {
+  width:50%;
+  text-align:center;
 }
