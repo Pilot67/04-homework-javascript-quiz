@@ -5,7 +5,6 @@ var header = document.querySelector("header");
 var questionDisplay = document.querySelector(".qAsk");
 var answerList = document.querySelector("#answerList");
 var qNumber = document.getElementById("headingSpan");
-//var questionCard = document.querySelector(".qCard");
 var timerDisplay = document.querySelector("#timerSpan");
 var feedBack = document.querySelector("#feedBack");
 var numAnswered = document.querySelector("#resultNum");
@@ -38,12 +37,15 @@ var colors = {
 questions = {
     ask: [
         "Who is the founder of javascript", //Q1
-        "True or False: A function can be included in an object", //Q2
+        "A function can be included in an object", //Q2
         "To define an object you use which type of bracket", //Q3
         "What character do you use to break a string into 2 lines", //Q4
         "Can you see global variable values in a function", //Q5
         "The correct way to declare a function is:", //Q6
-        "What does this mean '==='", //Q7
+        "What does this mean 'a === b'", //Q7
+        "Where should the <script> element go in a html file", //Q8
+        "The <aside> element defines aside content", //Q9
+        "What does the 'pop' method do", //Q10
     ],
     answer: [
     [ //Answers to Q1
@@ -79,19 +81,24 @@ questions = {
     [ //Q7 answers
         ["Strict equal 'value and type'",true],
         ["syntax error", false],
-        ["", false],
+        ["equal", false],
+    ],
+    [ //Q8 answers
+        ["in the <head> section", false],
+        ["at the end of the <body> section", false],
+        ["Both the <head> and <body>", true],
+    ],
+    [ //Q9 answers
+        ["True", true],
+        ["False", false],
+    ],
+    [ //Q10
+        ["removes the last element in an array",true],
+        ["removes the first element from an array", false],
+        ["removes the first and last element from an array",false],
     ],
 ]
 }
-
-qtn = [{
-    ask:"QQQ",
-    answer:[["aa", true],["bb",false]]
-}]
-console.log(qtn[0])
-console.log(qtn[0].answer)
-console.log(qtn[0].answer[1][1])
-
 
 //create random questions
 var questionsRandom = questions;
@@ -140,7 +147,7 @@ function displayQuestions() {
 //function to start the quiz timer
 function startGameTimer(){
     timerStart = true;
-    qtimer = 60;
+    qtimer = 30;
     timerInterval = setInterval(function(){
         qtimer--;
         timerDisplay.textContent = qtimer;

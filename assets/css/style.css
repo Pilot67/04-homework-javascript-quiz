@@ -46,16 +46,16 @@ h1,h2,h3,h4,h5,h6 {
 }
 h1 {font-size: 3.5rem;}
 h2 {font-size: 3rem;}
-h3 {font-size: 2.5rem;}
-h4 {font-size: 3rem;}
-h5 {font-size: 2.5rem;}
-h6 {font-size: 2rem;}
+h3 {font-size: 2.0rem;}
+h4 {font-size: 1.8rem;}
+h5 {font-size: 1.5rem;}
+h6 {font-size: 1.25rem;}
 
 main {
   width:100%;
   display: block;
   justify-items: flex-start ;
-  padding: 20px 20px;
+  padding: 20px 0px; 
   height: 100vh;
 }
 .button {
@@ -72,12 +72,13 @@ main {
   border-radius: 8px;
   box-shadow: 3px 3px 10px darkslategray;
   padding: 8px;
-  width: 90vw;
+  width: 95vw;
   margin: auto;
 }
 .qCard,
 .rCard,
-.hCard {
+.hCard, 
+.fCard {
   display: block;
   width: 100%;
   margin: 0 auto;
@@ -91,6 +92,7 @@ main {
 .headingDiv {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   border-bottom: 1px var(--wrapperBack) solid;
 }
 .resultHeading {
@@ -99,7 +101,11 @@ main {
 }
 .qAsk {
   padding: 10px;
-  width: 75%;
+  width: 100%;
+  box-shadow:0 0 5px 3px var(--wrapperBack) ;
+  border-radius: 5px;
+  margin: 10px auto 20px auto;
+  text-align: center;
 }
 #answerList {
   margin:0 auto;
@@ -118,8 +124,10 @@ main {
 #answerList li:hover {
   border:2px  darkgrey inset;
 }
-.qCard p {
+.fCard p {
   text-align: center;
+  font-style: italic;
+  opacity: .6;
 }
 
 #feedBack {
@@ -155,20 +163,23 @@ main {
   }
   #answerList {
     margin:0 auto;
-    width: 75%;
+    width: 85%;
   }
-  
+  .qAsk {
+    width: 85%;
+  }
+  h3 {font-size: 2.5rem;}
 }
 
 @media (min-width:1280px)  {
   .cardWrapper,
   .resultWrapper,
   .highWrapper {
-    width: 50%;
+    width: 60%;
   }
   #answerList {
     margin:0 auto;
-    width: 60%;
+    width: 80%;
   }
   
 }
