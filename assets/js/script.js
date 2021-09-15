@@ -5,7 +5,7 @@ var header = document.querySelector("header");
 var questionDisplay = document.querySelector(".qAsk");
 var answerList = document.querySelector("#answerList");
 var qNumber = document.getElementById("headingSpan");
-var questionCard = document.querySelector(".qCard");
+//var questionCard = document.querySelector(".qCard");
 var timerDisplay = document.querySelector("#timerSpan");
 var feedBack = document.querySelector("#feedBack");
 var numAnswered = document.querySelector("#resultNum");
@@ -16,6 +16,7 @@ var highEl = document.querySelector(".highWrapper");
 var highListEl = document.querySelector(".highList");
 var scoreCloseBtn = document.querySelector("#scoreCloseBtn");
 var highBtn = document.querySelector("#highBtn");
+var resetBtn = document.querySelector("#resetBtn");
 
 var questionIndex = 0;
 var answerSelected = false;
@@ -39,6 +40,10 @@ questions = {
         "Who is the founder of javascript", //Q1
         "True or False: A function can be included in an object", //Q2
         "To define an object you use which type of bracket", //Q3
+        "What character do you use to break a string into 2 lines", //Q4
+        "Can you see global variable values in a function", //Q5
+        "The correct way to declare a function is:", //Q6
+        "What does this mean '==='", //Q7
     ],
     answer: [
     [ //Answers to Q1
@@ -56,8 +61,38 @@ questions = {
         ["[]", false],
         ["()", false],
     ],
+    [ //Answers to Q4
+        ["\\", true],
+        ["<br>", false],
+        ["/n", false],
+    ],
+    [ //Answers to Q5
+        ["Yes", true],
+        ["No",false],
+    ],
+    [ //Answers to Q6
+        ["function testBtn(){ function here }", true],
+        ["testBtn()",false],
+        ["testBtn function()", false],
+        ["Call testBtn{}", false],
+    ],
+    [ //Q7 answers
+        ["Strict equal 'value and type'",true],
+        ["syntax error", false],
+        ["", false],
+    ],
 ]
 }
+
+qtn = [{
+    ask:"QQQ",
+    answer:[["aa", true],["bb",false]]
+}]
+console.log(qtn[0])
+console.log(qtn[0].answer)
+console.log(qtn[0].answer[1][1])
+
+
 //create random questions
 var questionsRandom = questions;
 //Shuffle the question deck
@@ -237,6 +272,12 @@ submitBtn.addEventListener("click",function(event){
     }
     nameInput.value = "";
     displayHighScores()
+})
+//Reset high Scores
+resetBtn.addEventListener("click", function(){
+    highScoreArr = null;
+    localStorage.clear();
+    init();
 })
 
 //initialise 

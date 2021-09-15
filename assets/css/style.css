@@ -61,7 +61,7 @@ main {
 .button {
   border-radius: 1rem;
   padding: 5px 25px;
-  margin: 1rem auto;
+  margin: 1rem 30px;
   font-size: 2rem;
 }
 .cardWrapper,
@@ -103,7 +103,7 @@ main {
 }
 #answerList {
   margin:0 auto;
-  width: 50%;
+  width: 90%;
 }
 
 #answerList li {
@@ -113,6 +113,7 @@ main {
   text-align: center;
   cursor: pointer;
   border-radius: 1rem;
+  padding: 0 5px;
 }
 #answerList li:hover {
   border:2px  darkgrey inset;
@@ -144,4 +145,30 @@ main {
 .highList li {
   width:50%;
   text-align:center;
+}
+
+@media (min-width:690px)  {
+  .cardWrapper,
+  .resultWrapper,
+  .highWrapper {
+    width: 75%;
+  }
+  #answerList {
+    margin:0 auto;
+    width: 75%;
+  }
+  
+}
+
+@media (min-width:1280px)  {
+  .cardWrapper,
+  .resultWrapper,
+  .highWrapper {
+    width: 50%;
+  }
+  #answerList {
+    margin:0 auto;
+    width: 60%;
+  }
+  
 }
