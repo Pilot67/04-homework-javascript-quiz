@@ -1,5 +1,6 @@
 // Declare global variables
 var startBtn = document.querySelector("#startBtn");
+var submitBtn = document.querySelector("#submitBtn");
 var header = document.querySelector("header");
 var questionDisplay = document.querySelector(".qAsk");
 var answerList = document.querySelector("#answerList");
@@ -22,11 +23,7 @@ var nextQuestion = false;
 var score = 0;
 var qTimer, timerInterval, timerStart;
 //var timerStart = false;
-var highScoreArr = [
-    {name:"Stuart", score:7},
-    {name:"Carrie", score:12},
-    {name:"Katie", score:6}
-];
+var highScoreArr; 
 
 var colors = {
     greenTrue:"#48d325",
@@ -61,7 +58,6 @@ questions = {
     ],
 ]
 }
-
 //create random questions
 var questionsRandom = questions;
 //Shuffle the question deck
@@ -84,20 +80,21 @@ function shuffleQuestions() {
         }
     }
 }  
-
+//Initialise the question display
 function initQuestionDisplay(){
     header.setAttribute("style","display:none");
     cardEl.setAttribute("style","display:block")
 }
-
 //function to render the questions on the screen
 function displayQuestions() {
     qNumber.textContent = questionIndex+1;
     questionDisplay.textContent = questionsRandom.ask[questionIndex] + " ?";
+    while (answerList.hasChildNodes()){
+        answerList.removeChild(answerList.firstChild);
+    }
     // Render a new li for each answer
     for (var index = 0; index < questionsRandom.answer[questionIndex].length; index++) {
         //var todo = todos[i];
-
         var li = document.createElement("li");
         li.textContent = questionsRandom.answer[questionIndex][index][0];
         li.setAttribute("data-correct", questionsRandom.answer[questionIndex][index][1]);
@@ -105,11 +102,10 @@ function displayQuestions() {
     }
     answerSelected=false;
 }
-
 //function to start the quiz timer
 function startGameTimer(){
     timerStart = true;
-    qtimer = 10;
+    qtimer = 60;
     timerInterval = setInterval(function(){
         qtimer--;
         timerDisplay.textContent = qtimer;
@@ -121,15 +117,16 @@ function startGameTimer(){
         }
     },1000 );
 }
-
 // function to initialise the quiz
 startBtn.addEventListener("click", function(){
+    questionIndex = 0;
+    score = 0;
     shuffleQuestions(); //Shuffle the Q & A's
     initQuestionDisplay(); // initialise the display
     displayQuestions() // display the questions
     startGameTimer();
 })
-
+// click on answers
 answerList.addEventListener("click",function(event){
     var eventTarget = event.target;
     if (eventTarget.matches("li") && !answerSelected) {
@@ -149,7 +146,7 @@ answerList.addEventListener("click",function(event){
         nextQn();
     }
 })
-
+// display Correct or Wrong - delay
 function nextQn() {
     var delay = 6;
     var localInterval = setInterval(function(){
@@ -161,48 +158,38 @@ function nextQn() {
         }
     },100 );
 }
-
+//Clear displayed questions
 function clearQuestions () {
     feedBack.textContent = " ";
     questionIndex++;
     if (questionIndex < questionsRandom.ask.length){
-        //remove all of the last answers
-        while (answerList.hasChildNodes()){
-            answerList.removeChild(answerList.firstChild);
-        }
-        //display the next question
         displayQuestions()
     }else {
         clearInterval(timerInterval);
         endGame()//end of quiz
-        //displayResults()
     }
 
 }
+//End of Quiz - show score
 function endGame(){
     cardEl.setAttribute("style","display:none");
     resultEl.setAttribute("style", "display:block");
     numAnswered.textContent = questionIndex + " Questions";
     scoreEl.textContent = score;
 }
-
-
-//initialise
-function init(){
-    //Clear the displays
-    header.setAttribute("style","display:block");
-    cardEl.setAttribute("style","display:none");
-    resultEl.setAttribute("style", "display:none");
-    highEl.setAttribute("style", "display:none");
-    getHighScores() //load the high score
- }
- //Save the high scores to local storage
- function saveHighScores(){
+//Save the high scores to local storage
+function saveHighScores(){
     localStorage.setItem("highScores",JSON.stringify(highScoreArr));
- }
+}
  //get the high scores from local storage
- function getHighScores(){
+function getHighScores(){
     highScoreArr = JSON.parse(localStorage.getItem("highScores"));
+    
+    //clear the list if its already populated
+    while (highListEl.hasChildNodes()){
+        highListEl.removeChild(highListEl.firstChild);
+    }
+
     if (highScoreArr !== null) {
         //console.log(highScoreArr);
         highScoreArr.sort(function(a, b){return b.score - a.score})
@@ -217,18 +204,50 @@ function init(){
         li.setAttribute("style", "width:100%")
         highListEl.appendChild(li)
     }
- }
- //close the high score panel
- scoreCloseBtn.addEventListener("click", function(){
-     init();
- })
-
- //Display the high scores on screen
-function displayHighScores(){
-    header.setAttribute("style","display:none");
-    highEl.setAttribute("style", "display:block");    
 }
+ 
+//Display the high scores on screen
+function displayHighScores(){
+     getHighScores();
+     header.setAttribute("style","display:none");
+     resultEl.setAttribute("style", "display:none");
+     highEl.setAttribute("style", "display:block");    
+}
+//close the high score panel
+scoreCloseBtn.addEventListener("click", function(){
+    init();
+})
 //event listner to display the high scores     
 highBtn.addEventListener("click", displayHighScores);
+//Event listner and function when submit button is pressed
+submitBtn.addEventListener("click",function(event){
+    event.preventDefault();
+    var nameInput = document.querySelector("#nameInput");
+    var playerName = nameInput.value.trim();
+    if (playerName === "" || playerName === null){
+        alert("You must enter a valid name");
+        return;
+    }else {
+        if (highScoreArr !== null){
+            highScoreArr.push({name: playerName, score:score});
+        }else {
+            highScoreArr = [{name: playerName, score:score}];
+        }
+        saveHighScores();
+    }
+    nameInput.value = "";
+    displayHighScores()
+})
+
+//initialise 
+function init(){
+    //Clear the displays
+    getHighScores();
+    header.setAttribute("style","display:block");
+    cardEl.setAttribute("style","display:none");
+    resultEl.setAttribute("style", "display:none");
+    highEl.setAttribute("style", "display:none");
+    //saveHighScores() //load the high score
+}
 
 init()
