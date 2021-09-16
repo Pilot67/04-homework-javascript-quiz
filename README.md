@@ -4,9 +4,9 @@ Homework 04 - Build a javascript quiz
 # About  
 A quiz game to test your javascript knowledge. The game has 10 random questions and the answers for each question are also jumbled.  
 The game is timed for 30 seconds.  
-
+![Start](https://user-images.githubusercontent.com/86697483/133529668-7a748086-103e-42c3-9296-9c6516f8ae83.jpg)  
+  
 # Usage  
-![Screen Shot 2021-09-16 at 9 11 01 am](https://user-images.githubusercontent.com/86697483/133528550-4ec20525-5819-45b0-92c2-2736a6d2b771.png)  
 Click on the "Start Quiz" button to begin. The quiz will start immediatly and a 30 second timer will begin.  
 ![Questions](https://user-images.githubusercontent.com/86697483/133529483-94326c3b-56d4-40e0-b1c0-783a963f76ee.jpg)  
 Click on the correct answer. You will score 1 point for each correct answer.  
@@ -24,9 +24,15 @@ Type in your name to submit your score.
 The High Score screen is then displayed:  
 ![High-Score](https://user-images.githubusercontent.com/86697483/133529435-03b8212f-cc69-4a31-8991-d2926a035ccd.jpg)  
 The scores are sorted from highest to lowest. If you would like to erase all of the stored scores, click on "Reset High Scores". The "OK" button takes you back to the start of the quiz.  
-
-
-
+  
+# Built With  
+* html  
+* css  
+* javascript  
+  
+ # Links  
+Project Link: https://github.com/Pilot67/04-homework-javascript-quiz  
+Published Link: 
 
 
 
