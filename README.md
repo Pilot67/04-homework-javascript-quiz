@@ -32,7 +32,5 @@ The scores are sorted from highest to lowest. If you would like to erase all of 
   
  # Links  
 Project Link: https://github.com/Pilot67/04-homework-javascript-quiz  
-Published Link: 
-
-
-
+Published Link: https://pilot67.github.io/04-homework-javascript-quiz/  
+  
