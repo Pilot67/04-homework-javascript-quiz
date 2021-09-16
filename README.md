@@ -19,7 +19,7 @@ If your answer is incorrect you will briefly see this screen:
 
 The game ends when you have answered all the questions or the time runs out. The summary screen will be displayed:  
 ![Summary](https://user-images.githubusercontent.com/86697483/133529107-a489fcf2-dc57-4c13-b9a1-602035ee5c87.jpg)  
-Type in your name to submit your score.  
+Type in your name to submit your score. Scores are saved to browser local storage.  
   
 The High Score screen is then displayed:  
 ![High-Score](https://user-images.githubusercontent.com/86697483/133529435-03b8212f-cc69-4a31-8991-d2926a035ccd.jpg)  
