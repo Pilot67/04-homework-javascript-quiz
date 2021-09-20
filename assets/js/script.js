@@ -147,11 +147,11 @@ function displayQuestions() {
 //function to start the quiz timer
 function startGameTimer(){
     timerStart = true;
-    qtimer = 30;
+    qTimer = 30;
     timerInterval = setInterval(function(){
-        qtimer--;
-        timerDisplay.textContent = qtimer;
-        if(qtimer === 0) {
+        qTimer--;
+        timerDisplay.textContent = qTimer;
+        if(qTimer === 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
             timerStart = false;
@@ -183,6 +183,7 @@ answerList.addEventListener("click",function(event){
             eventTarget.setAttribute("style","background-color: " + colors.redFalse + ";");
             feedBack.setAttribute("style", "color:" + colors.redFalse);
             feedBack.textContent = "Wrong !";
+            qTimer = qTimer - 5;
         }
         //call next question
         nextQn();
